@@ -1,0 +1,3 @@
+[th]
+bob	ansible_connection=kermit ansible_remote_user=debian ansible_line=/dev/ttyS0
+
