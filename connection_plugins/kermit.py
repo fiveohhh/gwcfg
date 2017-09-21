@@ -2,6 +2,9 @@ from __future__ import (absolute_import, division, print_function)
 from __future__ import unicode_literals
 __metaclass__ = type
 
+# useful links:
+# - https://pexpect.readthedocs.io/en/stable/overview.html
+
 DOCUMENTATION = '''
     connection: kermit
     short_description: connect via kermit
