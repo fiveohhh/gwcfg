@@ -35,8 +35,8 @@ Vagrant.configure("2") do |config|
     echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main' >> /etc/apt/sources.list
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
     apt-get update
-    apt-get install -y dirmngr avahi-utils python-pip ckermit
-    apt-get install -y ansible zsh
+    apt-get install -y dirmngr avahi-utils zsh python-pip ckermit
+    apt-get install -y --allow-unauthenticated ansible
     chsh -s /usr/bin/zsh vagrant
     usermod vagrant -a -G dialout
 
