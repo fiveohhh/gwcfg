@@ -12,9 +12,9 @@ Vagrant.configure("2") do |config|
 #    vb.customize ["modifyvm", :id, "--uart1", "0x3f8", "4"]
 #    vb.customize ["modifyvm", :id, "--uartmode1", "/dev/tty.usbserial-FT94IHFD"]
 
-#    vb.customize ["modifyvm", :id, "--usb", "on"]
-#    vb.customize ["modifyvm", :id, "--usbehci", "off"]
-#    vb.customize ["modifyvm", :id, "--usbxhci", "off"]
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ["modifyvm", :id, "--usbehci", "off"]
+    vb.customize ["modifyvm", :id, "--usbxhci", "off"]
 
 #    vb.customize ['usbfilter', 'add', '0',
 #                  '--target', :id,
@@ -32,11 +32,15 @@ Vagrant.configure("2") do |config|
 #  end
 
   config.vm.provision "shell", inline: <<-SHELL
-    echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main' >> /etc/apt/sources.list
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+    if [ ! -f /etc/apt/sources.list.d/ansible.list ]; then
+      echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main' >> /etc/apt/sources.list.d/ansible.list
+      apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+    fi
     apt-get update
-    apt-get install -y dirmngr avahi-utils zsh python-pip ckermit
     apt-get install -y --allow-unauthenticated ansible
+  SHELL
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get install -y dirmngr avahi-utils zsh python-pip ckermit
     chsh -s /usr/bin/zsh vagrant
     usermod vagrant -a -G dialout
 
